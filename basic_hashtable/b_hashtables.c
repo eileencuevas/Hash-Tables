@@ -126,6 +126,15 @@ void hash_table_remove(BasicHashTable *ht, char *key)
  ****/
 char *hash_table_retrieve(BasicHashTable *ht, char *key)
 {
+  // look at the index it hashes to
+  int index = hash(key, ht->capacity);
+  // if there is a pair there and the key of that pair is the same, return value?
+  if (ht->storage[index] != NULL && strcmp(ht->storage[index]->key, key) == 0)
+  {
+    return ht->storage[index]->value;
+  }
+  // else, return NULL
+  return NULL;
 }
 
 /****
