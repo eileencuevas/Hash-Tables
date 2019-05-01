@@ -109,6 +109,14 @@ void hash_table_insert(BasicHashTable *ht, char *key, char *value)
  ****/
 void hash_table_remove(BasicHashTable *ht, char *key)
 {
+  // find index of the pair
+  int index = hash(key, ht->capacity);
+  // if something is there, destroy pair and set to null
+  if (ht->storage[index] != NULL)
+  {
+    destroy_pair(ht->storage[index]);
+    ht->storage[index] = NULL;
+  }
 }
 
 /****
