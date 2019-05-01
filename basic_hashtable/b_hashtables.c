@@ -87,6 +87,19 @@ BasicHashTable *create_hash_table(int capacity)
  ****/
 void hash_table_insert(BasicHashTable *ht, char *key, char *value)
 {
+  Pair *new_pair = create_pair(key, value);
+  int index = hash(key, ht->capacity); // hash finds "index" to store pair
+
+  if (ht->storage[index] != NULL)
+  {
+    printf("The current pair will overwrite an existing pair!\n");
+    destroy_pair(ht->storage[index]); // free malloc'd memory from existing pair
+    ht->storage[index] = new_pair;    // assign new pair
+  }
+  else
+  {
+    ht->storage[index] = new_pair;
+  }
 }
 
 /****
