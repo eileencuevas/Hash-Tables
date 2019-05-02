@@ -144,6 +144,22 @@ char *hash_table_retrieve(BasicHashTable *ht, char *key)
  ****/
 void destroy_hash_table(BasicHashTable *ht)
 {
+  if (ht->storage != NULL)
+  {
+    // go through the storage and delete pairs
+    for (int i = 0; i < ht->capacity; i++)
+    {
+      if (ht->storage[i] != NULL)
+      {
+        destroy_pair(ht->storage[i]);
+      }
+    }
+  }
+  // free table
+  if (ht != NULL)
+  {
+    free(ht);
+  }
 }
 
 #ifndef TESTING
