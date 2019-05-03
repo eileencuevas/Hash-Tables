@@ -218,9 +218,12 @@ HashTable *hash_table_resize(HashTable *ht)
 
   for (int i = 0; i < ht->capacity; i++)
   {
-    if (ht->storage[i] != NULL)
+    LinkedPair *current_pair = ht->storage[i];
+
+    while (current_pair != NULL)
     {
-      new_ht->storage[i] = ht->storage[i];
+      hash_table_insert(new_ht, current_pair->key, current_pair->value);
+      current_pair = current_pair->next;
     }
   }
 
